@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import '../modelos/CustomButton.dart';
+import '../modelos/CustomIconButton.dart';
 
 class AerodinamicaWidget extends StatefulWidget {
   const AerodinamicaWidget({Key? key}) : super(key: key);
@@ -11,6 +13,13 @@ class AerodinamicaWidget extends StatefulWidget {
 class _AerodinamicaWidgetState extends State<AerodinamicaWidget> {
   final scaffoldKey = GlobalKey<ScaffoldState>();
   bool value = false;
+  bool _isVisible = false;
+
+  void mostrarConcluidas() {
+    setState(() {
+      _isVisible = !_isVisible;
+    });
+  }
 
   @override
   void initState() {
@@ -393,9 +402,7 @@ class _AerodinamicaWidgetState extends State<AerodinamicaWidget> {
                             mainAxisSize: MainAxisSize.max,
                             children: [
                               CustomButton(
-                                onPressed: () {
-                                  print('teste');
-                                },
+                                onPressed: mostrarConcluidas,
                                 text: 'CONCLUÍDAS',
                                 options: CButtonOptions(
                                   height: 40,
@@ -419,16 +426,30 @@ class _AerodinamicaWidgetState extends State<AerodinamicaWidget> {
                                   borderRadius: 8,
                                 ),
                               ),
-                              ListView(
-                                padding: EdgeInsets.zero,
-                                shrinkWrap: true,
-                                scrollDirection: Axis.vertical,
-                                children: [
-                                  Padding(
-                                    padding: EdgeInsetsDirectional.fromSTEB(
-                                        0, 10, 0, 0),
-                                    child: Text(
-                                      'Concluido 1',
+                              Visibility(
+                                visible: _isVisible,
+                                child: ListView(
+                                  padding: EdgeInsets.zero,
+                                  shrinkWrap: true,
+                                  scrollDirection: Axis.vertical,
+                                  children: [
+                                    Padding(
+                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                          0, 10, 0, 0),
+                                      child: Text(
+                                        'Concluido 1',
+                                        textAlign: TextAlign.center,
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .bodyMedium!
+                                            .copyWith(
+                                              fontFamily: 'Work Sans',
+                                              color: Colors.white,
+                                            ),
+                                      ),
+                                    ),
+                                    Text(
+                                      'Concluido 2',
                                       textAlign: TextAlign.center,
                                       style: Theme.of(context)
                                           .textTheme
@@ -438,19 +459,8 @@ class _AerodinamicaWidgetState extends State<AerodinamicaWidget> {
                                             color: Colors.white,
                                           ),
                                     ),
-                                  ),
-                                  Text(
-                                    'Concluido 2',
-                                    textAlign: TextAlign.center,
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .bodyMedium!
-                                        .copyWith(
-                                          fontFamily: 'Work Sans',
-                                          color: Colors.white,
-                                        ),
-                                  ),
-                                ],
+                                  ],
+                                ),
                               ),
                             ],
                           ),
